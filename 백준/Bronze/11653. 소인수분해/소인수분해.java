@@ -8,23 +8,21 @@ public class Main {
     static boolean[] isPrime;
     static StringBuilder sb = new StringBuilder();
 
-    static void pf(int N, int num) throws IOException {
+    static void pf(int N, int num) {
         // N == 소수일 때까지 계속 나누기
-        if(isPrime[N]) sb.append(N).append("\n");
-        while (!isPrime[N]) {
-
-            while (N % num == 0) {
-                sb.append(num).append("\n");
-                N /= num;
-                if(isPrime[N]) {
-                    sb.append(N).append("\n");
-                    break;
-                }
-            }
-            num++;
-            if (num == max) break;
-
+        if(isPrime[N]){
+            sb.append(N).append("\n");
+            return;
         }
+
+        if(N%num==0){
+            sb.append(num).append("\n");
+            pf(N/num, num);
+        }else{
+            num++;
+            pf(N, num);
+        }
+
     }
 
     public static void main(String[] args) throws IOException {
@@ -42,10 +40,9 @@ public class Main {
             }
         }
 
-        // 소인수분해
-        pf(N, 2);
-
         if(N!=1) {
+            // 소인수분해
+            pf(N, 2);
             sb.setLength(sb.length()-1);
             System.out.println(sb);
         }
