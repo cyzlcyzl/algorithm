@@ -6,18 +6,19 @@ public class Main{
     static int N, M;
     static boolean[] isVisited;
     static int[] arr, select;
-    static Set<String> set = new LinkedHashSet<>();
+    static StringBuilder sb = new StringBuilder();
     
     static void combination(int idx, int size){
         if(size == M){
-            String s = "";
-            for(int i = 0; i<M; i++) s += arr[select[i]] + " ";
-            set.add(s);
+            for(int i = 0; i<M; i++) sb.append(arr[select[i]]).append(" ");
+            sb.append("\n");
             return;
         }
         
+        int before = -1;
         for(int i = idx; i<N; i++){
-            if(isVisited[i]) continue;
+            if(isVisited[i] || before == arr[i]) continue;
+            before = arr[i];
             select[size] = i;
             isVisited[i] = true;
             combination(idx, size + 1);
@@ -41,8 +42,6 @@ public class Main{
 		Arrays.sort(arr);
 		combination(0, 0);
 		
-		StringBuilder sb = new StringBuilder();
-		for(String s : set) sb.append(s).append("\n");
 		sb.setLength(sb.length()-1);
 		System.out.println(sb);
 	}
