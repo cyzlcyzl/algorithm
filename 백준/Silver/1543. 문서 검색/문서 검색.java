@@ -7,21 +7,11 @@ public class Main{
 		String doc = br.readLine();
 		String search = br.readLine();
 		
-		int len = search.length();
+		doc = doc.replace(search, "1");
 		int answer = 0;
-		
-		while(doc.length() > len){
-		    String cut = doc.substring(0, len);
-		    if(cut.equals(search)) {
-		        answer++;
-		        doc = doc.substring(len);
-		    }
-		    else {
-		        doc = doc.substring(1);
-		    }
+		for(int i = 0; i<doc.length(); i++){
+		    if(doc.charAt(i) == '1') answer++;
 		}
-		
-		if(doc.length() == len && doc.equals(search)) answer++;
 		
 		System.out.println(answer);
 	}
